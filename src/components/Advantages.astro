@@ -1,0 +1,78 @@
+---
+// src/components/TechStackBento.astro
+
+interface TechCard {
+  title: string;
+  description: string;
+  icon: string;
+  color: "rose" | "violet";
+  span?: number;
+}
+
+const cards: TechCard[] = [
+  {
+    title: "100% Private & Offline",
+    description:
+      "Your voice and data never leave your machine. By running Gemma 4 locally via Vulkan, Babilo ensures total linguistic privacy without needing an internet connection.",
+    icon: "shield_lock",
+    color: "rose",
+    span: 2,
+  },
+  {
+    title: "GPLv3 Open Source",
+    description:
+      "Transparency you can trust. Our core logic is open to the community, ensuring the project remains ethical, auditable, and free from corporate data-mining.",
+    icon: "code_blocks",
+    color: "violet",
+    span: 2,
+  },
+  {
+    title: "Buy Once, Own Forever",
+    description:
+      "Say goodbye to monthly fees. Babilo follows a 'Convenience Commercial' model—pay once on Steam for a pre-compiled, optimized experience and keep it for life.",
+    icon: "shopping_cart_checkout",
+    color: "violet",
+    span: 2,
+  },
+  {
+    title: "No Latency, No Limits",
+    description:
+      "Engineered in Rust for immediate response times. Practice conversations in real-time with neural synthesis that reacts as fast as a human tutor.",
+    icon: "speed",
+    color: "rose",
+    span: 2,
+  },
+];
+---
+
+<section class="max-w-[1440px] mx-auto px-6 mb-32">
+  <div class="text-center mb-16">
+    <h2 class="font-headline-lg text-white mb-4">Why Choose Babilo?</h2>
+    <p class="text-slate-400 max-w-2xl mx-auto">
+      Traditional language apps sell your data and charge you every month. 
+      Babilo flips the script with local-first AI and permanent ownership.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+    {cards.map((card) => (
+      <div
+        class={`md:col-span-${card.span ?? 2} glass-surface p-8 rounded-2xl transition-all group
+          ${card.color === "rose" ? "hover:border-rose-500/30" : "hover:border-violet-500/30"}`}
+      >
+        <div
+          class={`w-12 h-12 rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform
+            ${card.color === "rose" ? "bg-rose-500/10" : "bg-violet-500/10"}`}
+        >
+          <span
+            class={`material-symbols-outlined ${card.color === "rose" ? "text-rose-500" : "text-violet-500"}`}
+          >
+            {card.icon}
+          </span>
+        </div>
+        <h3 class="font-headline-md text-white mb-2">{card.title}</h3>
+        <p class="font-body-md text-slate-400 leading-relaxed">{card.description}</p>
+      </div>
+    ))}
+  </div>
+</section>
