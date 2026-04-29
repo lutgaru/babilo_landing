@@ -4,34 +4,32 @@
 interface NavLink {
   label: string;
   href: string;
-  active?: boolean;
 }
 
 const navLinks: NavLink[] = [
-  { label: "Engine", href: "#", active: true },
-  { label: "Models",   href: "#" },
-  { label: "Hardware", href: "#" },
-  { label: "Docs",     href: "#" },
+  { label: "Home",        href: "#home" },
+  { label: "Advantages",  href: "#advantages" },
+  { label: "Comparative", href: "#comparative" },
+  { label: "Stack",       href: "#stack" },
+  { label: "Questions",   href: "#questions" },
 ];
 
 import Logo from "../assets/babilologo2.svg";
 ---
 
 <header class="fixed top-0 z-50 w-full bg-[#111118]/80 backdrop-blur-[20px] border-b border-white/10">
-  <div class="flex justify-between items-center w-full px-6 py-4 max-w-[1440px] mx-auto">
+  <div class="flex justify-between items-center w-full px-6 py-4 mx-auto">
 
-    <!-- Logo + Nav -->
+    <!-- Logo + Desktop Nav -->
     <div class="flex items-center gap-4">
-      <Logo  width={32} height={32}/>
+      <Logo width={32} height={32} />
       <nav class="hidden md:flex gap-8 ml-12">
         {navLinks.map((link) => (
           <a
             href={link.href}
-            class={
-              link.active
-                ? "text-rose-500 font-bold font-space-grotesk font-medium tracking-tight text-sm"
-                : "text-slate-400 hover:text-rose-400 hover:bg-white/5 transition-all font-space-grotesk font-medium tracking-tight text-sm px-2 py-1 rounded"
-            }
+            data-nav-link
+            data-section={link.href.replace("#", "")}
+            class="nav-link text-slate-400 hover:text-rose-400 hover:bg-white/5 transition-all font-space-grotesk font-medium tracking-tight text-sm px-2 py-1 rounded"
           >
             {link.label}
           </a>
@@ -44,10 +42,117 @@ import Logo from "../assets/babilologo2.svg";
       <span class="material-symbols-outlined text-slate-400 cursor-pointer hover:text-white">
         language
       </span>
-      <button class="bg-gradient-to-r from-rose-500 to-violet-600 px-6 py-2 rounded-lg font-headline-md text-[14px] hover:brightness-110 active:scale-95 duration-200 ease-out">
+      <button class="hidden md:block bg-gradient-to-r from-rose-500 to-violet-600 px-6 py-2 rounded-lg font-headline-md text-[14px] hover:brightness-110 active:scale-95 duration-200 ease-out">
         Start
+      </button>
+
+      <!-- Hamburger (mobile only) -->
+      <button
+        id="menu-toggle"
+        class="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-1.5"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+      >
+        <span class="burger-line block w-5 h-px bg-white transition-all duration-300"></span>
+        <span class="burger-line block w-5 h-px bg-white transition-all duration-300"></span>
+        <span class="burger-line block w-5 h-px bg-white transition-all duration-300"></span>
       </button>
     </div>
 
   </div>
+
+  <!-- Mobile menu -->
+  <div
+    id="mobile-menu"
+    class="md:hidden overflow-hidden max-h-0 transition-[max-height] duration-300 ease-in-out border-t border-white/0"
+  >
+    <nav class="flex flex-col px-6 py-4 gap-1">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          data-nav-link
+          data-section={link.href.replace("#", "")}
+          class="nav-link text-slate-400 font-space-grotesk font-medium tracking-tight text-sm px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-rose-400 transition-all"
+        >
+          {link.label}
+        </a>
+      ))}
+      <div class="pt-3 border-t border-white/10 mt-2">
+        <button class="w-full bg-gradient-to-r from-rose-500 to-violet-600 px-6 py-2.5 rounded-lg font-headline-md text-[14px] hover:brightness-110 active:scale-95 duration-200 ease-out">
+          Start
+        </button>
+      </div>
+    </nav>
+  </div>
 </header>
+
+<script>
+  // ── Hamburger toggle ──────────────────────────────────────────────
+  const toggle = document.getElementById("menu-toggle");
+  const menu   = document.getElementById("mobile-menu");
+  const lines  = toggle?.querySelectorAll(".burger-line");
+
+  toggle?.addEventListener("click", () => {
+    const open = menu?.classList.toggle("menu-open");
+    toggle.setAttribute("aria-expanded", String(open));
+
+    if (open) {
+      menu?.classList.remove("max-h-0", "border-white/0");
+      menu?.classList.add("max-h-96", "border-white/10");
+      lines?.[0].classList.add("rotate-45", "translate-y-[6px]");
+      lines?.[1].classList.add("opacity-0");
+      lines?.[2].classList.add("-rotate-45", "-translate-y-[6px]");
+    } else {
+      menu?.classList.add("max-h-0", "border-white/0");
+      menu?.classList.remove("max-h-96", "border-white/10");
+      lines?.[0].classList.remove("rotate-45", "translate-y-[6px]");
+      lines?.[1].classList.remove("opacity-0");
+      lines?.[2].classList.remove("-rotate-45", "-translate-y-[6px]");
+    }
+  });
+
+  // Close mobile menu on link click
+  menu?.querySelectorAll("a").forEach(a => {
+    a.addEventListener("click", () => {
+      menu.classList.add("max-h-0", "border-white/0");
+      menu.classList.remove("max-h-96", "border-white/10");
+      toggle?.setAttribute("aria-expanded", "false");
+      lines?.[0].classList.remove("rotate-45", "translate-y-[6px]");
+      lines?.[1].classList.remove("opacity-0");
+      lines?.[2].classList.remove("-rotate-45", "-translate-y-[6px]");
+    });
+  });
+
+  // ── Active section detection ──────────────────────────────────────
+  const ACTIVE   = ["text-rose-500", "font-bold"];
+  const INACTIVE = ["text-slate-400"];
+
+  function setActive(sectionId: string) {
+    document.querySelectorAll<HTMLAnchorElement>("[data-nav-link]").forEach(link => {
+      const isActive = link.dataset.section === sectionId;
+      link.classList.remove(...ACTIVE, ...INACTIVE);
+      link.classList.add(...(isActive ? ACTIVE : INACTIVE));
+    });
+  }
+
+  const sections = document.querySelectorAll<HTMLElement>("section[id], div[id]");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    },
+    {
+      rootMargin: "-40% 0px -55% 0px",
+      threshold: 0,
+    }
+  );
+
+  sections.forEach(s => {
+    if (navLinks.find(l => l.href === `#${s.id}`)) observer.observe(s);
+  });
+
+  // Set home active on load
+  setActive("home");
+</script>
