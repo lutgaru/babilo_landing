@@ -13,6 +13,8 @@ const navLinks: NavLink[] = [
   { label: "Hardware", href: "#" },
   { label: "Docs",     href: "#" },
 ];
+
+import Logo from "../assets/babilologo.svg";
 ---
 
 <header class="fixed top-0 z-50 w-full bg-[#111118]/80 backdrop-blur-[20px] border-b border-white/10">
@@ -20,9 +22,7 @@ const navLinks: NavLink[] = [
 
     <!-- Logo + Nav -->
     <div class="flex items-center gap-4">
-      <span class="font-serif italic text-3xl text-rose-500 drop-shadow-[0_0_8px_rgba(224,68,106,0.3)]">
-        B
-      </span>
+      <Logo  width={32} height={32}/>
       <nav class="hidden md:flex gap-8 ml-12">
         {navLinks.map((link) => (
           <a

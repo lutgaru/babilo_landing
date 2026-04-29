@@ -12,13 +12,14 @@ const links: FooterLink[] = [
   { label: "Supertonic API", href: "#" },
   { label: "Security",      href: "#" },
 ];
+import Logo from "../assets/babilologo.svg";
 ---
 
 <footer class="relative bottom-0 w-full mt-20 bg-[#18181f] border-t border-white/5">
   <div class="flex flex-col md:flex-row justify-between items-center w-full px-8 py-12 gap-6 max-w-[1440px] mx-auto">
 
     <div class="space-y-4">
-      <span class="font-serif italic text-3xl text-rose-500">B</span>
+      <Logo  width={32} height={32}/>
       <p class="font-space-grotesk text-sm uppercase tracking-widest text-slate-500">
         © 2024 Language Engine. Powered by Rust &amp; Gemma 4. Built with Tauri.
       </p>
