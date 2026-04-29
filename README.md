@@ -1,43 +1,46 @@
-# Astro Starter Kit: Minimal
+# 🌐 Babilo | Official Landing Page
+> The official marketing & documentation website for **Babilo** — the zero-latency, privacy-first local AI language engine.
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Built with **Astro** and **Tailwind CSS v4**, this site is optimized for maximum performance, accessibility, and SEO. Zero client-side JavaScript bloat, fully responsive, and designed with a dark-mode-first approach.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+---
 
-## 🚀 Project Structure
+## ✨ Features
+- ⚡ **Astro-Powered:** Static-first architecture, island-ready, near-instant page loads
+- 🎨 **Tailwind CSS v4:** Custom design tokens via `@theme`, utility-first styling, no config bloat
+- 📱 **Fully Responsive:** Mobile-first layout, fluid typography, adaptive CSS grids
+- 🌙 **Dark Mode Native:** Material 3-inspired surface tokens, optimized contrast ratios
+- 📦 **Zero JS Bloat:** No heavy frameworks. Only essential inline scripts when required
+- ♿ **Accessible:** Semantic HTML, keyboard navigation, proper ARIA structure
 
-Inside of your Astro project, you'll see the following folders and files:
+---
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+## 🛠️ Tech Stack
+| Category | Technology |
+|---|---|
+| **Framework** | [Astro](https://astro.build/) (v4+) |
+| **Styling** | [Tailwind CSS v4](https://tailwindcss.com/) + `@theme` design tokens |
+| **Build Tool** | [Vite](https://vitejs.dev/) (via Astro) |
+| **Fonts** | Space Grotesk, Manrope (Google Fonts) |
+| **Icons** | Material Symbols Outlined |
+| **License** | [MIT](LICENSE) |
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+---
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## 🚀 Getting Started
 
-Any static assets, like images, can be placed in the `public/` directory.
+### Prerequisites
+- Node.js `>=18.0.0`
+- npm, pnpm, or yarn
 
-## 🧞 Commands
+### Installation & Development
+```bash
+# Clone the repository
+git clone https://github.com/your-username/babilo-landing.git
+cd babilo-landing
 
-All commands are run from the root of the project, from a terminal:
+# Install dependencies
+npm install
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+# Start the dev server
+npm run dev

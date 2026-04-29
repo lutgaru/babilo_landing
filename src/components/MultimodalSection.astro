@@ -1,0 +1,74 @@
+---
+// src/components/MultimodalSection.astro
+
+interface Feature {
+  icon: string;
+  iconColor: "rose" | "violet";
+  title: string;
+  description: string;
+}
+
+const features: Feature[] = [
+  {
+    icon: "mic",
+    iconColor: "rose",
+    title: "Spatial Audio Capture",
+    description:
+      "Understands nuances in pronunciation and local dialects with sub-10ms processing.",
+  },
+  {
+    icon: "visibility",
+    iconColor: "violet",
+    title: "Visual Contextualization",
+    description:
+      "Point your camera at any object to receive real-time linguistic translations and grammar usage.",
+  },
+  {
+    icon: "text_snippet",
+    iconColor: "rose",
+    title: "Semantic Parsing",
+    description:
+      "Translates not just words, but intent and cultural subtext from text files or screen-grabs.",
+  },
+];
+---
+
+<section class="max-w-[1440px] mx-auto px-6 mb-32">
+  <div class="bg-[#18181f] rounded-[32px] p-12 lg:p-20 overflow-hidden relative border border-white/5">
+
+    <!-- Background accent image -->
+    <div class="absolute top-0 right-0 w-1/2 h-full opacity-20 pointer-events-none">
+      <img
+        class="w-full h-full object-cover"
+        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAC6T5V0IiSzOx5FbwmxTSuih2QLGm0WTDCAMPohr0S_mEkeE8414rTl6F09HC8Bzus5ksr4HsQw0km5Qyy__GeYSND4vUmKrJvvZ8Bx4Gj9ROUs8OPI40EFbs0z1OCfNX_tHgF334W9DtNlcqU1DmhxcVt-Y19lFvQgMkE5BIQwneyXSm3WL4dW1Istuf_xQ1iTzvidw5wj_DYRxhE-P2GqefkSXHsH3VBQH6WvwIz6queOzqdpn1qX8xr55J7YD02rj0Aet5a8k4"
+        alt="Circuit board background"
+      />
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-10 lg:w-1/2">
+      <h2 class="font-headline-xl text-white mb-8">Beyond the Keyboard</h2>
+      <p class="font-body-lg text-on-surface-variant mb-12">
+        B doesn't just read text. It observes and listens, creating a high-fidelity learning loop
+        that adapts to your environment and natural speech patterns.
+      </p>
+
+      <div class="space-y-6">
+        {features.map((f) => (
+          <div class="flex gap-4">
+            <span
+              class={`material-symbols-outlined shrink-0 ${f.iconColor === "rose" ? "text-rose-500" : "text-violet-500"}`}
+            >
+              {f.icon}
+            </span>
+            <div>
+              <h4 class="text-white font-headline-md text-lg mb-1">{f.title}</h4>
+              <p class="text-on-surface-variant text-sm">{f.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>

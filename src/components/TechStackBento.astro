@@ -1,0 +1,72 @@
+---
+// src/components/TechStackBento.astro
+
+interface TechCard {
+  title: string;
+  description: string;
+  icon: string;
+  color: "rose" | "violet";
+  span?: number; // md:col-span-N, default 2
+}
+
+const cards: TechCard[] = [
+  {
+    title: "Tauri v2 + Rust",
+    description:
+      "Experience native desktop performance with zero overhead. The memory-safe Rust core ensures stability while keeping the binary size incredibly lean.",
+    icon: "terminal",
+    color: "rose",
+    span: 2,
+  },
+  {
+    title: "Vite + Lit",
+    description:
+      "Instant startup and fluid UI interactions. Our frontend architecture leverages lightweight web components for a buttery-smooth 120fps experience.",
+    icon: "bolt",
+    color: "violet",
+    span: 2,
+  },
+  {
+    title: "llamacpp + Vulkan",
+    description:
+      "Hardware-agnostic acceleration. Whether you're on an RTX GPU or an integrated chip, Vulkan optimizes every tensor operation for your hardware.",
+    icon: "memory",
+    color: "violet",
+    span: 2,
+  },
+  {
+    title: "Supertonic API",
+    description:
+      "Neural voice synthesis that feels human. Advanced prosody models allow for natural pauses, emphasis, and emotional tonality in 40+ languages.",
+    icon: "settings_voice",
+    color: "rose",
+    span: 2,
+  },
+];
+---
+
+<section class="max-w-[1440px] mx-auto px-6 mb-32">
+  <h2 class="font-headline-lg text-white mb-12 text-center">Engineered for Performance</h2>
+
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+    {cards.map((card) => (
+      <div
+        class={`md:col-span-${card.span ?? 2} glass-surface p-8 rounded-2xl transition-all group
+          ${card.color === "rose" ? "hover:border-rose-500/30" : "hover:border-violet-500/30"}`}
+      >
+        <div
+          class={`w-12 h-12 rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform
+            ${card.color === "rose" ? "bg-rose-500/10" : "bg-violet-500/10"}`}
+        >
+          <span
+            class={`material-symbols-outlined ${card.color === "rose" ? "text-rose-500" : "text-violet-500"}`}
+          >
+            {card.icon}
+          </span>
+        </div>
+        <h3 class="font-headline-md text-white mb-2">{card.title}</h3>
+        <p class="font-body-md text-on-surface-variant">{card.description}</p>
+      </div>
+    ))}
+  </div>
+</section>
