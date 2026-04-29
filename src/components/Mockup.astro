@@ -1,0 +1,72 @@
+---
+import { Image } from 'astro:assets';
+import Screenshot from '../assets/images/Screenshot 2026-04-29 115356.png';
+---
+
+<!-- Isometric mockup replaces <Mockup /> -->
+      <div
+        class="w-full h-[500px] rounded-xl overflow-hidden flex items-center justify-center bg-[radial-gradient(ellipse_at_60%_40%,_#2d1b4e_0%,_#1a0e2e_30%,_#0a0a0f_70%)]"
+        style="perspective: 1800px; perspective-origin: 50% 38%;"
+      >
+        <div
+          class="w-[86%] flex flex-col"
+          style="transform-style: preserve-3d;"
+        >
+          <!-- Card -->
+          <div
+            class="rounded-xl overflow-hidden border border-white/[0.08] bg-[#0e0e14] transition-[transform] duration-700 ease-out"
+            style="transform: rotateX(12deg) rotateY(-22deg) rotateZ(2deg) translateY(-45px);
+                   box-shadow: 0 2px 0 rgba(255,255,255,0.04) inset, 0 40px 80px -10px rgba(0,0,0,0.7), 0 80px 160px -30px rgba(0,0,0,0.5);"
+            onmouseenter="this.style.transform='rotateX(6deg) rotateY(-12deg) rotateZ(1deg)'"
+            onmouseleave="this.style.transform='rotateX(12deg) rotateY(-22deg) rotateZ(2deg)'"
+          >
+            <!-- Browser chrome -->
+            <div
+              class="h-9 bg-[#17171f] border-b border-white/[0.06] flex items-center px-3 gap-1.5"
+            >
+              <span class="w-2.5 h-2.5 rounded-full bg-[#ff5f57]"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-[#28ca41]"></span>
+              <div class="flex-1 flex justify-center">
+                <div
+                  class="h-[18px] w-40 bg-white/[0.04] border border-white/[0.06] rounded flex items-center px-2"
+                >
+                  <span class="font-mono text-[10px] text-white/20 truncate"
+                    >localhost:4321</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- Screenshot -->
+            <div class="relative overflow-hidden aspect-video ">
+              <Image
+                src={Screenshot}
+                alt="App preview"
+                class="w-full h-full object-cover object-top block"
+              />
+              <!-- top-left glint -->
+              <div
+                class="absolute inset-0 bg-gradient-to-br from-white/[0.04] to-transparent pointer-events-none"
+              >
+              </div>
+            </div>
+          </div>
+
+          <!-- Reflection -->
+          <div
+            class="w-full h-10 overflow-hidden pointer-events-none opacity-[0.15]"
+            style="transform: rotateX(12deg) rotateY(-22deg) rotateZ(2deg) scaleY(-1);
+                   transform-origin: top center;
+                   mask-image: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
+                   -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);"
+          >
+            <Image
+              src={Screenshot}
+              alt=""
+              class="w-full object-cover object-top block"
+            />
+          </div>
+        </div>
+      </div>
+      <!-- end isometric mockup -->
