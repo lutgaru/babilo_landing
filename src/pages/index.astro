@@ -1,21 +1,23 @@
 ---
 // src/pages/index.astro
-import BaseLayout      from "../layouts/BaseLayout.astro";
-import TopAppBar       from "../components/TopAppBar.astro";
-import HeroSection     from "../components/HeroSection.astro";
-import TechStackBento  from "../components/TechStackBento.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import TopAppBar from "../components/TopAppBar.astro";
+import HeroSection from "../components/HeroSection.astro";
+import Advantages from "../components/Advantages.astro";
 import MultimodalSection from "../components/MultimodalSection.astro";
-import NeuralSandbox   from "../components/NeuralSandbox.astro";
-import Footer          from "../components/Footer.astro";
+import NeuralSandbox from "../components/NeuralSandbox.astro";
+import Footer from "../components/Footer.astro";
+import Comparative from "../components/Comparative.astro";
 ---
 
 <BaseLayout>
   <TopAppBar />
   <main class="pt-32">
     <HeroSection />
-    <TechStackBento />
+    <Advantages />
+    <Comparative />
     <MultimodalSection />
-    <NeuralSandbox />
+    <!-- <NeuralSandbox /> -->
   </main>
   <Footer />
 </BaseLayout>
