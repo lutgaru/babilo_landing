@@ -40,22 +40,49 @@ import Mockup from "./Mockup.astro";
       <p class="text-xs font-label-sm text-slate-500 uppercase tracking-widest">
         Join the Alpha Waitlist
       </p>
-      <form class="flex flex-wrap gap-3">
+
+      <form id="waitlist-form" class="flex flex-wrap gap-3 relative">
+        <div class="hidden" aria-hidden="true">
+          <input
+            type="text"
+            name="babilo_internal_id"
+            tabindex="-1"
+            autocomplete="off"
+          />
+        </div>
+
         <input
           type="email"
+          name="email"
+          id="email-input"
+          required
           placeholder="Enter your email"
-          class="bg-[#18181f] border border-white/10 px-6 py-4 rounded-lg focus:outline-none focus:border-rose-500/50 min-w-[300px] text-white transition-all"
+          class="bg-[#18181f] border border-white/10 px-6 py-4 rounded-lg focus:outline-none focus:border-rose-500/50 min-w-[300px] text-white transition-all disabled:opacity-50"
         />
+
         <button
-          class="bg-gradient-to-r from-rose-500 to-violet-600 px-8 py-4 rounded-lg font-headline-md text-[18px] text-white glow-crimson active:scale-95 transition-all"
+          id="submit-btn"
+          type="submit"
+          class="bg-gradient-to-r from-rose-500 to-violet-600 px-8 py-4 rounded-lg font-headline-md text-[18px] text-white glow-crimson active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
         >
           Secure Early Access
         </button>
+
+        <!-- Turnstile Widget -->
+        <div
+          class="cf-turnstile"
+          data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY}
+          data-theme="dark"
+        >
+        </div>
       </form>
+
+      <p id="form-message" class="text-sm mt-2 hidden"></p>
     </div>
   </div>
 
   <div class="lg:col-span-5 relative overflow-hidden">
+    <!-- ... (resto de tu código del mockup se mantiene igual) ... -->
     <div
       class="absolute -top-20 -right-20 w-80 h-80 bg-rose-500/10 blur-[100px] rounded-full"
     >
@@ -69,12 +96,10 @@ import Mockup from "./Mockup.astro";
       class="relative glass-surface p-1 rounded-2xl overflow-hidden shadow-2xl border border-white/5"
     >
       <Mockup />
-
       <div
         class="absolute inset-0 bg-gradient-to-t from-[#111118] via-transparent to-transparent"
       >
       </div>
-
       <div
         class="absolute bottom-6 left-6 right-6 p-6 glass-surface rounded-xl border border-white/10 backdrop-blur-md"
       >
@@ -104,3 +129,53 @@ import Mockup from "./Mockup.astro";
     </div>
   </div>
 </section>
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer
+></script>
+
+<script>
+  const form = document.getElementById("waitlist-form") as HTMLFormElement;
+  const btn = document.getElementById("submit-btn") as HTMLButtonElement;
+  const msg = document.getElementById("form-message");
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    // UI Feedback
+    btn.disabled = true;
+    btn.innerText = "Processing...";
+
+    const formData = new FormData(form);
+    const data = {
+      email: formData.get("email"),
+      hp: formData.get("babilo_internal_id"),
+      cf_token: formData.get("cf-turnstile-response"),
+    };
+
+    try {
+      const response = await fetch("/api/subscribe", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" },
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        msg?.classList.remove("hidden", "text-rose-400");
+        msg?.classList.add("text-emerald-400");
+        if (msg) msg.innerText = "Welcome to the Alpha, Adrian!";
+        form.reset();
+      } else {
+        throw new Error(result.message || "Submission failed");
+      }
+    } catch (err) {
+      msg?.classList.remove("hidden", "text-emerald-400");
+      msg?.classList.add("text-rose-400");
+      if (msg) msg.innerText = "Something went wrong. Try again?";
+    } finally {
+      btn.disabled = false;
+      btn.innerText = "Secure Early Access";
+    }
+  });
+</script>
