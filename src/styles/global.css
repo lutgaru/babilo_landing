@@ -85,6 +85,11 @@
     box-shadow: 0 0 20px rgba(94, 63, 190, 0.15);
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px; /* Compensa el header fijo */
+}
+
 body {
     min-height: max(884px, 100dvh);
 }
