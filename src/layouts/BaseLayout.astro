@@ -1,25 +1,75 @@
 ---
 // src/layouts/BaseLayout.astro
-import "../styles/global.css";
+import "../styles/global.css"; // ← Astro auto-injects this in build
 
 interface Props {
   title?: string;
+  description?: string;
+  image?: string;
+  url?: string;
+  language?: string;
+  publishedTime?: string;
+  modifiedTime?: string;
 }
 
-const { title = "B | The Future of Local Language Learning" } = Astro.props;
+const {
+  title = "Babilo | Offline AI Language Learning • Private, Fast, One-Time Purchase",
+  description = "Practice any language with zero-latency AI powered by Gemma 4 & Rust. 100% private, offline, no subscriptions. Join the alpha waitlist.",
+  image = "/og-preview.webp",
+  url = "https://babilo.lutgaru.com/",
+  language = "en",
+  publishedTime,
+  modifiedTime
+} = Astro.props;
+
+const canonicalUrl = url.endsWith('/') ? url : `${url}/`;
+const imageUrl = image.startsWith('http') ? image : new URL(image, canonicalUrl).href;
 ---
 
 <!doctype html>
-<html class="dark" lang="en">
+<html class="dark" lang={language}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Primary Meta Tags -->
     <title>{title}</title>
-
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" type="svg+xml" href="/favicon.svg" />
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Babilo app preview: Offline AI language learning interface" />
+    <meta property="og:site_name" content="Babilo" />
+    <meta property="og:locale" content={language} />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalUrl} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+    <meta name="twitter:creator" content="@lutgarulabs" />
+    
+    <!-- Additional SEO -->
+    <meta name="theme-color" content="#111118" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://challenges.cloudflare.com" />
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">{/* ... SoftwareApplication schema ... */}</script>
   </head>
-  <body
-    class="bg-[#111118] text-on-surface font-body-md selection:bg-primary-container selection:text-white"
-  >
+  
+  <body class="bg-[#111118] text-on-surface font-body-md selection:bg-primary-container selection:text-white">
     <slot />
   </body>
 </html>

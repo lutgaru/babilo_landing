@@ -9,9 +9,18 @@ import Footer from "../components/Footer.astro";
 import Comparative from "../components/Comparative.astro";
 import TechStack from "../components/TechStack.astro";
 import Questions from "../components/Questions.astro";
+
+const pageUrl = "https://babilo.lutgaru.com/";
+const publishDate = "2026-05-10";
 ---
 
-<BaseLayout>
+<BaseLayout
+  title="Babilo | Offline AI Language Learning • Private, Fast, One-Time Purchase"
+  description="Practice any language with zero-latency AI powered by Gemma 4 & Rust. 100% private, offline, no subscriptions. Join the alpha waitlist."
+  image="/og-preview.webp"
+  url={pageUrl}
+  publishedTime={publishDate}
+  modifiedTime={publishDate}>
   <TopAppBar />
   <main class="pt-32">
     <HeroSection />
