@@ -164,7 +164,7 @@ import Mockup from "./Mockup.astro";
       if (response.ok) {
         msg?.classList.remove("hidden", "text-rose-400");
         msg?.classList.add("text-emerald-400");
-        if (msg) msg.innerText = "Welcome to the Alpha, Adrian!";
+        if (msg) msg.innerText = "Welcome to the waitlist!";
         form.reset();
       } else {
         throw new Error(result.message || "Submission failed");
