@@ -7,41 +7,48 @@ interface NavLink {
 }
 
 const navLinks: NavLink[] = [
-  { label: "Home",        href: "#home" },
-  { label: "Advantages",  href: "#advantages" },
+  { label: "Home", href: "#home" },
+  { label: "Advantages", href: "#advantages" },
   { label: "Comparative", href: "#comparative" },
-  { label: "Stack",       href: "#stack" },
-  { label: "Questions",   href: "#questions" },
+  { label: "Stack", href: "#stack" },
+  { label: "Questions", href: "#questions" },
 ];
 
 import Logo from "../assets/babilologo2.svg";
 ---
 
-<header class="fixed top-0 z-50 w-full bg-[#111118]/80 backdrop-blur-[20px] border-b border-white/10">
+<header
+  class="fixed top-0 z-50 w-full bg-[#111118]/80 backdrop-blur-[20px] border-b border-white/10"
+>
   <div class="flex justify-between items-center w-full px-6 py-4 mx-auto">
-
     <!-- Logo + Desktop Nav -->
     <div class="flex items-center gap-4">
       <Logo width={32} height={32} />
       <nav class="hidden md:flex gap-8 ml-12">
-        {navLinks.map((link) => (
-          <a
-            href={link.href}
-            data-nav-link
-            data-section={link.href.replace("#", "")}
-            class="nav-link text-slate-400 hover:text-rose-400 hover:bg-white/5 transition-all font-space-grotesk font-medium tracking-tight text-sm px-2 py-1 rounded"
-          >
-            {link.label}
-          </a>
-        ))}
+        {
+          navLinks.map((link) => (
+            <a
+              href={link.href}
+              data-nav-link
+              data-section={link.href.replace("#", "")}
+              class="nav-link text-slate-400 hover:text-rose-400 hover:bg-white/5 transition-all font-space-grotesk font-medium tracking-tight text-sm px-2 py-1 rounded"
+            >
+              {link.label}
+            </a>
+          ))
+        }
       </nav>
     </div>
 
     <!-- Actions -->
     <div class="flex items-center gap-4">
-      <button class="hidden md:block bg-gradient-to-r from-rose-500 to-violet-600 px-6 py-2 rounded-lg font-headline-md text-[14px] hover:brightness-110 active:scale-95 duration-200 ease-out">
+      <a
+        href="#waitlist-form"
+        data-scroll-to-waitlist
+        class="hidden md:block bg-gradient-to-r from-rose-500 to-violet-600 px-6 py-2 rounded-lg font-headline-md text-[14px] hover:brightness-110 active:scale-95 duration-200 ease-out text-white"
+      >
         Start
-      </button>
+      </a>
 
       <!-- Hamburger (mobile only) -->
       <button
@@ -50,12 +57,17 @@ import Logo from "../assets/babilologo2.svg";
         aria-label="Toggle menu"
         aria-expanded="false"
       >
-        <span class="burger-line block w-5 h-px bg-white transition-all duration-300"></span>
-        <span class="burger-line block w-5 h-px bg-white transition-all duration-300"></span>
-        <span class="burger-line block w-5 h-px bg-white transition-all duration-300"></span>
+        <span
+          class="burger-line block w-5 h-px bg-white transition-all duration-300"
+        ></span>
+        <span
+          class="burger-line block w-5 h-px bg-white transition-all duration-300"
+        ></span>
+        <span
+          class="burger-line block w-5 h-px bg-white transition-all duration-300"
+        ></span>
       </button>
     </div>
-
   </div>
 
   <!-- Mobile menu -->
@@ -64,20 +76,26 @@ import Logo from "../assets/babilologo2.svg";
     class="md:hidden overflow-hidden max-h-0 transition-[max-height] duration-300 ease-in-out border-t border-white/0"
   >
     <nav class="flex flex-col px-6 py-4 gap-1">
-      {navLinks.map((link) => (
-        <a
-          href={link.href}
-          data-nav-link
-          data-section={link.href.replace("#", "")}
-          class="nav-link text-slate-400 font-space-grotesk font-medium tracking-tight text-sm px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-rose-400 transition-all"
-        >
-          {link.label}
-        </a>
-      ))}
+      {
+        navLinks.map((link) => (
+          <a
+            href={link.href}
+            data-nav-link
+            data-section={link.href.replace("#", "")}
+            class="nav-link text-slate-400 font-space-grotesk font-medium tracking-tight text-sm px-3 py-2.5 rounded-lg hover:bg-white/5 hover:text-rose-400 transition-all"
+          >
+            {link.label}
+          </a>
+        ))
+      }
       <div class="pt-3 border-t border-white/10 mt-2">
-        <button class="w-full bg-gradient-to-r from-rose-500 to-violet-600 px-6 py-2.5 rounded-lg font-headline-md text-[14px] hover:brightness-110 active:scale-95 duration-200 ease-out">
+        <a
+          href="#waitlist-form"
+          data-scroll-to-waitlist
+          class="w-full bg-gradient-to-r from-rose-500 to-violet-600 px-6 py-2.5 rounded-lg font-headline-md text-[14px] hover:brightness-110 active:scale-95 duration-200 ease-out text-white block text-center"
+        >
           Start
-        </button>
+        </a>
       </div>
     </nav>
   </div>
@@ -86,8 +104,8 @@ import Logo from "../assets/babilologo2.svg";
 <script>
   // ── Hamburger toggle ──────────────────────────────────────────────
   const toggle = document.getElementById("menu-toggle");
-  const menu   = document.getElementById("mobile-menu");
-  const lines  = toggle?.querySelectorAll(".burger-line");
+  const menu = document.getElementById("mobile-menu");
+  const lines = toggle?.querySelectorAll(".burger-line");
 
   toggle?.addEventListener("click", () => {
     const open = menu?.classList.toggle("menu-open");
@@ -109,7 +127,7 @@ import Logo from "../assets/babilologo2.svg";
   });
 
   // Close mobile menu on link click
-  menu?.querySelectorAll("a").forEach(a => {
+  menu?.querySelectorAll("a").forEach((a) => {
     a.addEventListener("click", () => {
       menu.classList.add("max-h-0", "border-white/0");
       menu.classList.remove("max-h-96", "border-white/10");
@@ -121,35 +139,90 @@ import Logo from "../assets/babilologo2.svg";
   });
 
   // ── Active section detection ──────────────────────────────────────
-  const ACTIVE   = ["text-rose-500", "font-bold"];
+  const ACTIVE = ["text-rose-500", "font-bold"];
   const INACTIVE = ["text-slate-400"];
 
   function setActive(sectionId: string) {
-    document.querySelectorAll<HTMLAnchorElement>("[data-nav-link]").forEach(link => {
-      const isActive = link.dataset.section === sectionId;
-      link.classList.remove(...ACTIVE, ...INACTIVE);
-      link.classList.add(...(isActive ? ACTIVE : INACTIVE));
-    });
+    document
+      .querySelectorAll<HTMLAnchorElement>("[data-nav-link]")
+      .forEach((link) => {
+        const isActive = link.dataset.section === sectionId;
+        link.classList.remove(...ACTIVE, ...INACTIVE);
+        link.classList.add(...(isActive ? ACTIVE : INACTIVE));
+      });
   }
 
-  const sections = document.querySelectorAll<HTMLElement>("section[id], div[id]");
+  // ✅ Observar TODAS las secciones con id (sin filtrar por navLinks)
+  const sections = document.querySelectorAll<HTMLElement>(
+    "section[id], div[id]",
+  );
 
   const observer = new IntersectionObserver(
     (entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) setActive(entry.target.id);
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // setActive solo activará el link si existe un data-section que coincida
+          setActive(entry.target.id);
+        }
       });
     },
     {
-      rootMargin: "-40% 0px -55% 0px",
+      rootMargin: "-40% 0px -55% 0px", // Ajusta según necesites
       threshold: 0,
-    }
+    },
   );
 
-  sections.forEach(s => {
-    if (navLinks.find(l => l.href === `#${s.id}`)) observer.observe(s);
-  });
+  // ✅ Observar todas las secciones sin filtrar
+  sections.forEach((s) => observer.observe(s));
 
-  // Set home active on load
+  // Activar "home" por defecto al cargar
   setActive("home");
+
+  // ── Scroll + focus al formulario de waitlist ──────────────────────
+  document
+    .querySelectorAll<HTMLAnchorElement>("[data-scroll-to-waitlist]")
+    .forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault(); // Evita el salto brusco default
+
+        const form = document.getElementById("waitlist-form");
+        const emailInput = document.getElementById(
+          "email-input",
+        ) as HTMLInputElement;
+
+        if (form && emailInput) {
+          // 1. Scroll suave con compensación del header fijo
+          const headerOffset = 100; // Ajusta según la altura real de tu header
+          const elementPosition =
+            form.getBoundingClientRect().top + window.scrollY;
+          const offsetPosition = elementPosition - headerOffset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+
+          // 2. Enfocar el input después de que termine el scroll (~500ms para smooth)
+          setTimeout(() => {
+            emailInput.focus();
+            // Opcional: seleccionar el texto si ya tiene algo
+            // emailInput.select();
+          }, 600);
+
+          // 3. Si es mobile, cerrar el menú hamburguesa
+          const menu = document.getElementById("mobile-menu");
+          const toggle = document.getElementById("menu-toggle");
+          const lines = toggle?.querySelectorAll(".burger-line");
+
+          if (menu?.classList.contains("menu-open")) {
+            menu.classList.add("max-h-0", "border-white/0");
+            menu.classList.remove("max-h-96", "border-white/10");
+            toggle?.setAttribute("aria-expanded", "false");
+            lines?.[0].classList.remove("rotate-45", "translate-y-[6px]");
+            lines?.[1].classList.remove("opacity-0");
+            lines?.[2].classList.remove("-rotate-45", "-translate-y-[6px]");
+          }
+        }
+      });
+    });
 </script>
