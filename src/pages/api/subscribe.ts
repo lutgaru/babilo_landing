@@ -60,6 +60,20 @@ export const POST: APIRoute = async ({ request }) => {
             return new Response(JSON.stringify({ error }), { status: 400 });
         }
 
+        const { error: mailError } = await resend.emails.send({
+            from: 'Adrian from Babilo <updates@babilo.lutgaru.com>',
+            to: email,
+            subject: 'Welcome to Babilo waitlist! 🚀',
+            template: {
+                id: "welcome-template"
+            }
+        });
+
+        if (mailError) {
+            console.error("Error enviando el mail:", mailError);
+            // No bloqueamos el éxito de la suscripción si solo falló el mail
+        }
+
         return new Response(JSON.stringify({ message: '¡Suscrito con éxito!', data }), { status: 200 });
 
     } catch (err) {
