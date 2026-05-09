@@ -52,8 +52,58 @@ const faqs = [
   <div class="mt-16 p-8 rounded-3xl bg-gradient-to-br from-rose-500/10 to-violet-500/10 border border-white/10 text-center">
     <p class="text-white font-headline-md mb-2">Have a more technical question?</p>
     <p class="text-slate-400 text-sm mb-6">Explore the architecture in our technical manifest or reach out via the waitlist.</p>
-    <a href="#waitlist" class="inline-block text-rose-400 font-label-sm border-b border-rose-400 pb-1 hover:text-rose-300 transition-colors">
+    <a href="#waitlist-form" data-scroll-to-waitlist class="inline-block text-rose-400 font-label-sm border-b border-rose-400 pb-1 hover:text-rose-300 transition-colors">
       JOIN THE COMMUNITY
     </a>
   </div>
 </section>
+
+<script>
+  // ── Scroll + focus al formulario de waitlist ──────────────────────
+  document
+    .querySelectorAll<HTMLAnchorElement>("[data-scroll-to-waitlist]")
+    .forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault(); // Evita el salto brusco default
+
+        const form = document.getElementById("waitlist-form");
+        const emailInput = document.getElementById(
+          "email-input",
+        ) as HTMLInputElement;
+
+        if (form && emailInput) {
+          // 1. Scroll suave con compensación del header fijo
+          const headerOffset = 100; // Ajusta según la altura real de tu header
+          const elementPosition =
+            form.getBoundingClientRect().top + window.scrollY;
+          const offsetPosition = elementPosition - headerOffset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+
+          // 2. Enfocar el input después de que termine el scroll (~500ms para smooth)
+          setTimeout(() => {
+            emailInput.focus();
+            // Opcional: seleccionar el texto si ya tiene algo
+            // emailInput.select();
+          }, 600);
+
+          // 3. Si es mobile, cerrar el menú hamburguesa
+          const menu = document.getElementById("mobile-menu");
+          const toggle = document.getElementById("menu-toggle");
+          const lines = toggle?.querySelectorAll(".burger-line");
+
+          if (menu?.classList.contains("menu-open")) {
+            menu.classList.add("max-h-0", "border-white/0");
+            menu.classList.remove("max-h-96", "border-white/10");
+            toggle?.setAttribute("aria-expanded", "false");
+            lines?.[0].classList.remove("rotate-45", "translate-y-[6px]");
+            lines?.[1].classList.remove("opacity-0");
+            lines?.[2].classList.remove("-rotate-45", "-translate-y-[6px]");
+          }
+        }
+      });
+    });
+</script>
